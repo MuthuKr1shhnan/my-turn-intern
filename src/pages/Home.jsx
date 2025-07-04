@@ -2,6 +2,7 @@ import ToolsCard from "../components/ToolsCard";
 import { tools } from "../utils/cardData";
 import { useState } from "react";
 
+
 function Home() {
   const [activeTab, setActiveTab] = useState("All");
   const [favorites, setFavorites] = useState([]);

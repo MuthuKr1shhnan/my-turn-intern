@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-
+import starfalse from "../assets/starfalse.svg";
+import startrue from "../assets/startrue.svg";
 const ToolsCard = ({
   tools = [],
   onToggleFavorite,
@@ -26,9 +27,9 @@ const ToolsCard = ({
                 className="absolute top-2 left-3 text-yellow-500 text-lg"
               >
                 {tool.isFavorite ? (
-                  <img src="src/assets/startrue.svg" alt="star" className="w-6 h-6"/>
+                  <img src={startrue} alt="star" className="w-6 h-6"/>
                 ) : (
-                  <img src="src/assets/starfalse.svg" alt="star" className="w-6 h-6"/>
+                  <img src={starfalse} alt="star" className="w-6 h-6"/>
                 )}
               </button>
             )}
