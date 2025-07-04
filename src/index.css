@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+i, svg{
+    stroke-color: white;
+    fill: white;
+    
+}
