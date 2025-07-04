@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import "../index.css";
+import merge from "../assets/merge.svg"; // Import your image here
 
 const FileGetter = ({
   title = "Merge PDF",
@@ -72,7 +73,7 @@ const FileGetter = ({
         <div className={headerClass}>
           <h1 className={titleClass}>{title}</h1>
           <p className={subtitleClass}>{subtitle}</p>
-         <i className={`bg-[url('src/assets/merge.svg')] ${imageClass} bg-cover fill-white stroke-white`}></i>
+       <img src={merge} alt="merge" className={imageClass}/>
         </div>
 
         {files.length > 0 ? (
