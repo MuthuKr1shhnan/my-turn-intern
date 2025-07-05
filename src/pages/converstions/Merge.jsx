@@ -168,16 +168,154 @@
 
 // export default Merge;
 // 
+// Merge.jsx
+// Merge.jsx
+// Merge.jsx
+// import { useRef, useState } from "react";
+// import { ReactSortable } from "react-sortablejs";
+// import FileGetter from "../../components/FileGetter";
+// import { FaPlus } from "react-icons/fa";
+// import { Document, Page, pdfjs } from "react-pdf";
+// import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+
+// // PDF.js worker config
+// pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
+
+// // 📄 PDF Preview Card Component
+// const PDFPreview = ({ file }) => {
+//   const [numPages, setNumPages] = useState(null);
+
+//   return (
+//     <div className="h-full w-full flex items-center justify-center bg-[#f9fafb]">
+//       <Document
+//         file={file}
+//         onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+//         onLoadError={(err) => console.error("PDF Load Error:", err.message)}
+//         loading={<div className="text-gray-400 text-sm">Loading...</div>}
+//         error={<div className="text-red-400 text-sm">Failed to load</div>}
+//       >
+//         <Page pageNumber={1} width={150} />
+//       </Document>
+//     </div>
+//   );
+// };
+
+// function Merge() {
+//   const [files, setFiles] = useState([]);
+//   const fileInputRef = useRef(null);
+
+//   const handleFileSelect = (selected) => {
+//     setFiles(selected);
+//   };
+
+//   const handleAddClick = () => {
+//     fileInputRef.current.click();
+//   };
+
+//   const handleFileInputChange = (e) => {
+//     setFiles((prev) => [...prev, ...Array.from(e.target.files)]);
+//   };
+
+//   const handleMerge = async () => {
+//     alert("Merge logic goes here.");
+//   };
+
+//   return (
+//     <FileGetter
+//       title="Merge PDF files"
+//       subtitle="Combine PDFs in the order you want with the easiest PDF merger available."
+//       acceptedFileTypes="application/pdf"
+//       buttonText="Select PDF Files"
+//       onFileSelect={handleFileSelect}
+//     >
+//       <div className="flex flex-col items-center w-full">
+//         <div className="relative w-full bg-gray-100 rounded-lg py-12 px-6 flex justify-center gap-8 flex-wrap min-h-[300px]">
+//           <ReactSortable
+//             list={files}
+//             setList={setFiles}
+//             className="flex flex-wrap justify-center gap-6"
+//           >
+//             {files.map((file, index) => (
+//               <div
+//                 key={index}
+//                 className="flex flex-col items-center group transition-all duration-200"
+//               >
+//                 <div className="relative bg-white w-[150px] h-[210px] rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+//                   <div className="absolute top-0 left-0 bg-black text-white text-xs px-2 py-1 rounded-br">
+//                     PDF
+//                   </div>
+//                   <PDFPreview file={file} />
+//                 </div>
+//                 <p className="mt-2 text-sm font-medium text-gray-800 max-w-[150px] text-center truncate">
+//                   {file.name}
+//                 </p>
+//               </div>
+//             ))}
+//           </ReactSortable>
+
+//           <button
+//             onClick={handleAddClick}
+//             className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 z-10"
+//           >
+//             <FaPlus />
+//           </button>
+
+//           <input
+//             ref={fileInputRef}
+//             type="file"
+//             accept="application/pdf"
+//             multiple
+//             onChange={handleFileInputChange}
+//             className="hidden"
+//           />
+//         </div>
+
+//         <button
+//           onClick={handleMerge}
+//           className="mt-8 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 shadow-md"
+//         >
+//           Merge files
+//         </button>
+//       </div>
+//     </FileGetter>
+//   );
+// }
+
+// export default Merge;
+
 import { useRef, useState } from "react";
 import { ReactSortable } from "react-sortablejs";
 import FileGetter from "../../components/FileGetter";
 import { FaPlus } from "react-icons/fa";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+
+// 🛠 Set correct worker
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
+
+// 📄 Compact Preview Card
+const PDFPreview = ({ file }) => {
+  const [numPages, setNumPages] = useState(null);
+
+  return (
+    <div className="h-auto w-full mt-1 flex items-center justify-center bg-white">
+      <Document
+        file={file}
+        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+        onLoadError={(err) => console.error("PDF Load Error:", err.message)}
+        loading={<div className="text-gray-400 text-xs">Loading...</div>}
+        error={<div className="text-red-400 text-xs">Failed to load</div>}
+      >
+        <Page pageNumber={1} width={110} />
+      </Document>
+    </div>
+  );
+};
 
 function Merge() {
   const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
 
-  // Your existing handlers remain exactly the same
   const handleFileSelect = (selected) => {
     setFiles(selected);
   };
@@ -187,11 +325,11 @@ function Merge() {
   };
 
   const handleFileInputChange = (e) => {
-    setFiles(prev => [...prev, ...Array.from(e.target.files)]);
+    setFiles((prev) => [...prev, ...Array.from(e.target.files)]);
   };
 
   const handleMerge = async () => {
-    // Your existing merge logic
+    alert("Merge logic goes here.");
   };
 
   return (
@@ -203,40 +341,30 @@ function Merge() {
       onFileSelect={handleFileSelect}
     >
       <div className="flex flex-col items-center w-full">
-        {/* File Display Box */}
-        <div className="relative w-full bg-gray-100 rounded-lg py-12 px-6 flex justify-center gap-8">
+        {/* 📦 Preview Area */}
+        <div className="relative w-full bg-gray-100 rounded-lg py-10 px-6 flex justify-center gap-6 flex-wrap min-h-[260px]">
+
           <ReactSortable
             list={files}
             setList={setFiles}
-            className="flex flex-wrap justify-center gap-8"
+            className="flex flex-wrap justify-center gap-6"
           >
             {files.map((file, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <div className="relative bg-white h-60 w-36 rounded shadow-md overflow-hidden">
-                  <div className="absolute top-0 left-0 bg-black text-white text-xs px-2 py-1 rounded-br">
+              <div key={index} className="flex flex-col items-center transition-all duration-200">
+                <div className="relative w-[110px] h-[160px] bg-white rounded-lg shadow hover:shadow-md overflow-hidden">
+                  <div className="absolute top-0 left-0 bg-black text-white text-[10px] px-1 py-[2px] rounded-br z-10">
                     PDF
                   </div>
-                  <object
-                    data={URL.createObjectURL(file)}
-                    type="application/pdf"
-                    width="100%"
-                    height="100%"
-                  >
-                    <div className="flex flex-col items-center justify-center h-full p-2 text-center">
-                      <span className="text-gray-400 text-sm">Preview not available</span>
-                      <span className="text-xs mt-1 text-gray-500 truncate w-full">
-                        {file.name}
-                      </span>
-                    </div>
-                  </object>
+                  <PDFPreview file={file} />
                 </div>
-                <p className="mt-2 text-sm font-medium text-gray-800 max-w-[144px] truncate">
+                <p className="mt-2 text-xs text-gray-700 max-w-[110px] text-center truncate">
                   {file.name}
                 </p>
               </div>
             ))}
           </ReactSortable>
 
+          {/* ➕ Add More Button */}
           <button
             onClick={handleAddClick}
             className="absolute right-[-20px] top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 z-10"
@@ -244,6 +372,7 @@ function Merge() {
             <FaPlus />
           </button>
 
+          {/* 📁 Hidden Input */}
           <input
             ref={fileInputRef}
             type="file"
@@ -254,6 +383,7 @@ function Merge() {
           />
         </div>
 
+        {/* 🔗 Merge Button */}
         <button
           onClick={handleMerge}
           className="mt-8 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 shadow-md"
